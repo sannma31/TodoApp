@@ -15,6 +15,11 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Button
 import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.*
+import androidx.compose.ui.unit.dp
 import com.example.todoapp.ui.theme.TodoAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -30,7 +35,9 @@ class MainActivity : ComponentActivity() {
                             .padding(innerPadding),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        Title(title = "Todoリスト")
+                        Title(title = "Todo")
+
+                        MyTextField()
 
                         AddTodoList(
                             onClick = {
@@ -47,7 +54,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Title(title: String) {
     Text(
-        text = "$title!", fontSize = 25.sp
+        text = "$title アプリ", fontSize = 25.sp
     )
 }
 
@@ -56,6 +63,20 @@ fun AddTodoList(onClick: () -> Unit) {
     Button(onClick = onClick) {
         Text("Todo追加")
     }
+}
+
+@Composable
+fun MyTextField() {
+    var text by remember { mutableStateOf(TextFieldValue()) }
+
+    TextField(
+        value = text,
+        onValueChange = { text = it },
+        label = { Text("今日やることを入力") },
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    )
 }
 
 //@Preview(showBackground = true)
