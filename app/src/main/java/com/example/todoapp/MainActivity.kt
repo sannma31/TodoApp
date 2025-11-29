@@ -11,10 +11,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.todoapp.ui.theme.TodoAppTheme
 import androidx.compose.ui.unit.sp
 import androidx.compose.material3.Button
-
+import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.Alignment
+import com.example.todoapp.ui.theme.TodoAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,14 +24,20 @@ class MainActivity : ComponentActivity() {
         setContent {
             TodoAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Title(
-                        title = "Todoリスト"
-                    )
-                    AddTodoList(
-                        onClick = {
-                            print("これから追加していく")
-                        }
-                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Title(title = "Todoリスト")
+
+                        AddTodoList(
+                            onClick = {
+                                print("これから追加していく")
+                            }
+                        )
+                    }
                 }
             }
         }
@@ -46,15 +53,14 @@ fun Title(title: String) {
 
 @Composable
 fun AddTodoList(onClick: () -> Unit) {
-    Button(onClick = { onClick() }) {
+    Button(onClick = onClick) {
         Text("Todo追加")
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TodoAppTheme {
-        Title(title = "Android")
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun GreetingPreview() {
+//    TodoAppTheme {
+//    }
+//}
