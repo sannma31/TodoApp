@@ -12,6 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.todoapp.ui.theme.TodoAppTheme
+import androidx.compose.ui.unit.sp
+import androidx.compose.material3.Button
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +23,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             TodoAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    Title(
+                        title = "Todoリスト"
+                    )
+                    AddTodoList(
+                        onClick = {
+                            print("これから追加していく")
+                        }
                     )
                 }
             }
@@ -31,24 +38,23 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
+fun Title(title: String) {
     Text(
-        text = "Hello $name!",
-        modifier = modifier
+        text = "$title!", fontSize = 25.sp
     )
 }
 
 @Composable
-fun TextText(name: String) {
-    Text(
-        text = "こら $name!"
-    )
+fun AddTodoList(onClick: () -> Unit) {
+    Button(onClick = { onClick() }) {
+        Text("Todo追加")
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     TodoAppTheme {
-        Greeting("Android")
+        Title(title = "Android")
     }
 }
